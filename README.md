@@ -10,6 +10,12 @@
 
 > **二次开发声明**：本项目基于开源项目 [SolidWorks Automation Skill](https://github.com/wzyn20051216/solidworks-automation-skill)（MIT License，作者 wzyn20051216 及其贡献者）进行二次开发。上游提供了完整的 SolidWorks COM API 封装、能力清单、自审查与交付体系、MCP Server 和桌面客户端；本仓库在其之上引入 **参数化 CAD JSON 声明式建模管线**，把 AI 建模从「逐行生成 Python 脚本」改为「生成一份结构化 JSON、由已验证引擎一次执行」。完整改动清单见[与上游的差异](#与上游的差异本仓库二次开发清单)。
 
+## 🎬 视频演示
+
+[![CadJSON Studio 演示视频](https://img.shields.io/badge/视频演示-哔哩哔哩-FB7299?logo=bilibili&logoColor=white)](https://b23.tv/teykRYN)
+
+> 实机完整流程：**自然语言需求 → AI 生成参数化 CAD JSON → SolidWorks 原生 3D 结构 → STEP 导出 + 自审查报告**
+
 ---
 
 ## 为什么做 CadJSON Studio
