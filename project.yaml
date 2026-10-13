@@ -1,13 +1,13 @@
 # MICU AI 资源库项目元数据
 # 用于 zuoliangyu/micu-ai-lib 聚合展示。
 
-name: SolidWorks Automation Skill
+name: CadJSON Studio
 authors: [wzyn20051216, zuoliangyu]
 category: Tool
-tags: [SolidWorks, CAD, AutoCAD, Desktop, PySide6, MCP, Python, COM, Automation, VibeCAD, Subskills]
+tags: [CadJSON, SolidWorks, CAD, AutoCAD, Desktop, PySide6, MCP, Python, COM, Automation, VibeCAD, Subskills]
 status: in-progress
 updated: 2026-07-25
-summary: 面向 Codex、Claude 与 OpenClaw 的 SolidWorks 自动化技能总仓，支持零件建模、装配、工程图、导出、自审查、本地 MCP 工具调用，并开始产品化为 PySide6 本地 CAD 自动化交付工作台。
+summary: 基于 SolidWorks Automation Skill（MIT）二次开发的 CadJSON Studio——AI 只写参数化 CAD JSON，已验证引擎单连接一次驱动 SolidWorks 完成建模、导出与自审查，并完整继承上游 Skill/MCP/桌面端能力体系。
 
 cover: assets/douyin-balance.jpg
 readme: README.md

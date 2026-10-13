@@ -1,0 +1,59 @@
+{
+  "schemaVersion": "1.0",
+  "documentId": "cell_cover_plate",
+  "title": "电芯盖板（方形铝壳，占位参数）",
+  "units": "mm",
+  "output": {
+    "dir": "C:/temp/cell_cover_plate",
+    "part": "cell_cover_plate.sldprt",
+    "step": "cell_cover_plate.step"
+  },
+  "parameters": {
+    "cover_L": 148.0,
+    "cover_W": 27.0,
+    "cover_T": 2.0,
+    "pos_X": 40.0,
+    "pos_D": 8.0,
+    "pos_H": 5.0,
+    "neg_X": -40.0,
+    "neg_D": 8.0,
+    "neg_H": 5.0,
+    "vent_D": 12.0,
+    "vent_H": 0.3,
+    "inject_X": 60.0,
+    "inject_D": 3.0,
+    "face_pick_X": 70.0
+  },
+  "features": [
+    {
+      "id": "cover_plate",
+      "type": "extrude",
+      "operation": "add",
+      "params": { "sketch": "rect", "w": "$cover_L", "h": "$cover_W", "depth": "$cover_T" }
+    },
+    {
+      "id": "injection_hole",
+      "type": "extrude",
+      "operation": "cut",
+      "params": { "sketch": "circle", "face": ["$face_pick_X", "$cover_T", 0], "cx": "$inject_X", "cy": 0, "d": "$inject_D", "through": true }
+    },
+    {
+      "id": "pos_terminal",
+      "type": "extrude",
+      "operation": "add",
+      "params": { "sketch": "circle", "face": ["$face_pick_X", "$cover_T", 0], "cx": "$pos_X", "cy": 0, "d": "$pos_D", "depth": "$pos_H" }
+    },
+    {
+      "id": "neg_terminal",
+      "type": "extrude",
+      "operation": "add",
+      "params": { "sketch": "circle", "face": ["$face_pick_X", "$cover_T", 0], "cx": "$neg_X", "cy": 0, "d": "$neg_D", "depth": "$neg_H" }
+    },
+    {
+      "id": "vent",
+      "type": "extrude",
+      "operation": "add",
+      "params": { "sketch": "circle", "face": ["$face_pick_X", "$cover_T", 0], "cx": 0, "cy": 0, "d": "$vent_D", "depth": "$vent_H" }
+    }
+  ]
+}

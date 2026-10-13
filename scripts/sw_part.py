@@ -464,10 +464,11 @@ def sketch_polygon(model, cx, cy, radius, sides=6):
 
 
 def sketch_slot(model, x1, y1, x2, y2, radius):
-    """画槽口"""
+    """画槽口（radius = 端部圆弧半径 = 半宽，单位: 米）"""
     return model.SketchManager.CreateSketchSlot(
-        0,  # swSketchSlotCreationType_e: 0=Straight
-        radius, radius,  # 宽度
+        0,            # swSketchSlotCreationType_e: 0=line（直槽）
+        0,            # swSketchSlotLengthType_e: 0=CenterCenter（两点为端部圆弧圆心）
+        radius * 2,   # Width = 全宽（= 端部圆弧半径 × 2）
         x1, y1, 0,
         x2, y2, 0,
         0, 0, 0,
@@ -594,7 +595,7 @@ def add_sketch_relation(model, relation_type):
 # 特征操作
 # ============================================================
 
-def extrude_boss(model, sketch_name, depth, direction=True, merge=True):
+def extrude_boss(model, sketch_name, depth, direction=True, merge=True, start_offset=0.0):
     """
     凸台拉伸
 
@@ -604,6 +605,7 @@ def extrude_boss(model, sketch_name, depth, direction=True, merge=True):
         depth: 拉伸深度（米）
         direction: True=正方向
         merge: True=合并结果
+        start_offset: 起始偏移（米），>0 时从草图平面偏移后再拉伸（swStartOffset）
     """
     _ensure_sketch_selected(model, sketch_name)
     return model.FeatureManager.FeatureExtrusion3(
@@ -627,9 +629,9 @@ def extrude_boss(model, sketch_name, depth, direction=True, merge=True):
         merge,        # Merge
         False,        # UseFeatScope
         True,         # UseAutoSelect
-        0,            # T0: 从草图平面开始
-        0.0,          # StartOffset
-        False         # FlipStartOffset
+        3 if start_offset > 0 else 0,  # T0: 3=swStartOffset，0=从草图平面
+        start_offset,                   # StartOffset
+        False                           # FlipStartOffset
     )
 
 
@@ -664,12 +666,13 @@ def extrude_cut(model, sketch_name, depth, direction=True, flip=False):
     )
 
 
-def extrude_midplane(model, sketch_name, total_depth):
+def extrude_midplane(model, sketch_name, total_depth, merge=True):
     """
     中面拉伸（两侧对称拉伸）
 
     参数:
         total_depth: 总深度（米），每侧为 total_depth/2
+        merge: True=合并结果；多实体建模传 False 生成独立实体
     """
     _ensure_sketch_selected(model, sketch_name)
     return model.FeatureManager.FeatureExtrusion3(
@@ -690,7 +693,7 @@ def extrude_midplane(model, sketch_name, total_depth):
         False,        # OffsetReverse2
         False,        # TranslateSurface1
         False,        # TranslateSurface2
-        True,         # Merge
+        merge,        # Merge
         False,        # UseFeatScope
         True,         # UseAutoSelect
         0,            # T0

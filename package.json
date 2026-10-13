@@ -1,7 +1,7 @@
 {
   "name": "solidworks-automation-skill",
   "version": "1.3.0",
-  "description": "SolidWorks automation skill installer for Claude CLI and other AI tools",
+  "description": "CadJSON Studio - declarative CAD JSON that drives native SolidWorks modeling in one pass; secondary development of solidworks-automation-skill (MIT)",
   "main": "install.js",
   "bin": {
     "solidworks-automation-skill": "./install.js",

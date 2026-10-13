@@ -226,7 +226,7 @@ def close_owned_solidworks(sw, started_by_cad_studio):
     return False
 
 
-def connect_solidworks(version=None, wait_seconds=5, visible=True, return_metadata=False):
+def connect_solidworks(version=None, wait_seconds=5, visible=True, return_metadata=False, attach_only=False):
     """
     连接到 SolidWorks 实例。
 
@@ -234,6 +234,7 @@ def connect_solidworks(version=None, wait_seconds=5, visible=True, return_metada
         version: SolidWorks 版本年份（如 2024），None 则自动检测
         wait_seconds: 启动新实例后等待秒数
         visible: 启动新实例后是否显示窗口
+        attach_only: True 时只附着已运行的实例，附着失败直接报错，绝不冷启动新实例
 
     返回:
         (sw, model) 元组，model 可能为 None（无打开的文档时）
@@ -249,6 +250,11 @@ def connect_solidworks(version=None, wait_seconds=5, visible=True, return_metada
             sw = win32com_client.GetActiveObject(prog_id)
             print(f"已连接到运行中的 SolidWorks 实例（ProgID: {prog_id}）")
         except Exception as attach_error:
+            if attach_only:
+                raise SolidWorksConnectionError(
+                    "SW_ATTACH_ONLY", "connect",
+                    f"未检测到运行中的 SolidWorks 实例（ProgID: {prog_id}）。请先手动打开 SolidWorks 后再运行。"
+                ) from attach_error
             try:
                 sw = win32com_client.Dispatch(prog_id)
                 launched_here = True
@@ -521,6 +527,37 @@ def save_document(model, file_path=None):
     else:
         print(f"保存失败, 错误码: {errors.value}, 警告码: {warnings.value}")
     return bool(success)
+
+
+def close_document(sw, model, *, discard_unsaved=False):
+    """
+    关闭文档。
+
+    参数:
+        sw: SolidWorks 应用对象
+        model: IModelDoc2 对象
+        discard_unsaved: True 时丢弃未保存修改，避免弹出"是否保存"对话框阻塞自动化
+
+    返回:
+        bool 成功/失败
+    """
+    title = get_com_member(model, "GetTitle")
+    if not title:
+        return False
+    try:
+        if discard_unsaved:
+            # 先尝试 QuitDoc 强制丢弃；不可用则把文档标记为已保存再 CloseDoc。
+            try:
+                get_com_member(sw, "QuitDoc", title)
+            except Exception:
+                get_com_member(model, "SetSaveFlag", False)
+                get_com_member(sw, "CloseDoc", title)
+        else:
+            get_com_member(sw, "CloseDoc", title)
+        return True
+    except Exception as exc:
+        print(f"提示: 关闭文档 {title} 失败: {exc}")
+        return False
 
 
 def mm(value):

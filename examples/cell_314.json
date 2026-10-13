@@ -1,0 +1,107 @@
+{
+  "schemaVersion": "1.1",
+  "documentId": "cell_314",
+  "title": "314 方壳电芯（多实体）",
+  "units": "mm",
+  "output": {
+    "dir": "C:/temp/cell_314",
+    "part": "cell_314.sldprt",
+    "step": "cell_314.step"
+  },
+  "parameters": {
+    "shell_L": 174.26,
+    "shell_T": 71.65,
+    "shell_H": 207.01,
+    "wall_t": 1.2,
+    "bottom_t": 1.5,
+    "cover_t": 5.0,
+    "core_gap": 0.5,
+    "terminal_d": 16.0,
+    "terminal_h": 10.0,
+    "terminal_z": 3.925,
+    "vent_offset": 19.9,
+    "vent_r": 6.0,
+    "vent_half_len": 6.0,
+    "fill_d": 4.0,
+    "fill_x": 70.0,
+    "fill_z": -25.0,
+    "cavity_L": 171.86,
+    "cavity_T": 69.25,
+    "cavity_H": 205.51,
+    "core_r": 34.375,
+    "core_half_straight": 65.88,
+    "core_x_len": 85.68,
+    "core_cy": 101.755,
+    "cover_start": 202.01
+  },
+  "features": [
+    {
+      "id": "shell_block",
+      "module": "shell",
+      "type": "extrude",
+      "operation": "add",
+      "params": { "sketch": "rect", "w": "$shell_L", "h": "$shell_T", "depth": "$shell_H" }
+    },
+    {
+      "id": "shell_cavity",
+      "module": "shell",
+      "type": "extrude",
+      "operation": "cut",
+      "params": { "sketch": "rect", "face": [0, "$shell_H", 0], "w": "$cavity_L", "h": "$cavity_T", "depth": "$cavity_H" }
+    },
+    {
+      "id": "core_1",
+      "module": "core",
+      "type": "extrude",
+      "operation": "add",
+      "merge": false,
+      "params": { "sketch": "slot", "plane": "Right Plane", "dir": "y", "cy": "$core_cy", "r": "$core_r", "half_len": "$core_half_straight", "depth": "$core_x_len", "direction": true }
+    },
+    {
+      "id": "core_2",
+      "module": "core",
+      "type": "extrude",
+      "operation": "add",
+      "merge": false,
+      "params": { "sketch": "slot", "plane": "Right Plane", "dir": "y", "cy": "$core_cy", "r": "$core_r", "half_len": "$core_half_straight", "depth": "$core_x_len", "direction": false }
+    },
+    {
+      "id": "cover",
+      "module": "cover",
+      "type": "extrude",
+      "operation": "add",
+      "merge": false,
+      "params": { "sketch": "rect", "w": "$cavity_L", "h": "$cavity_T", "depth": "$cover_t", "start_offset": "$cover_start" }
+    },
+    {
+      "id": "terminal_pos",
+      "module": "cover",
+      "type": "extrude",
+      "operation": "add",
+      "merge": false,
+      "params": { "sketch": "circle", "face": [0, "$shell_H", 0], "cx": 61.5, "cy": "$terminal_z", "d": "$terminal_d", "depth": "$terminal_h" }
+    },
+    {
+      "id": "terminal_neg",
+      "module": "cover",
+      "type": "extrude",
+      "operation": "add",
+      "merge": false,
+      "params": { "sketch": "circle", "face": [0, "$shell_H", 0], "cx": -61.5, "cy": "$terminal_z", "d": "$terminal_d", "depth": "$terminal_h" }
+    },
+    {
+      "id": "vent",
+      "module": "cover",
+      "type": "extrude",
+      "operation": "cut",
+      "params": { "sketch": "slot", "face": [0, "$shell_H", 0], "dir": "x", "cx": 0, "cy": "$vent_offset", "r": "$vent_r", "half_len": "$vent_half_len", "depth": "$cover_t" }
+    },
+    {
+      "id": "fill_hole",
+      "module": "cover",
+      "type": "extrude",
+      "operation": "cut",
+      "params": { "sketch": "circle", "face": [0, "$shell_H", 0], "cx": "$fill_x", "cy": "$fill_z", "d": "$fill_d", "depth": "$cover_t" }
+    }
+  ]
+}

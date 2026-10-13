@@ -1,7 +1,7 @@
 [project]
 name = "solidworks-automation-skill"
 version = "1.3.0"
-description = "Local MCP server for controlled SolidWorks and CAD Studio automation"
+description = "Declarative CAD JSON that drives native SolidWorks modeling in one pass - a secondary development of solidworks-automation-skill (MIT)"
 readme = "README.md"
 requires-python = ">=3.10"
 license = { text = "MIT" }
