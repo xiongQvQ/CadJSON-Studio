@@ -1,7 +1,7 @@
 [project]
 name = "solidworks-automation-skill"
 version = "1.3.0"
-description = "Declarative CAD JSON that drives native SolidWorks modeling in one pass - a secondary development of solidworks-automation-skill (MIT)"
+description = "Declarative CAD JSON pipeline for SolidWorks: one parameterized JSON document builds native parts, exports STEP, and runs automated self-review"
 readme = "README.md"
 requires-python = ">=3.10"
 license = { text = "MIT" }
