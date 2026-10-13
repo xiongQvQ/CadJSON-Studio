@@ -7,7 +7,7 @@ category: Tool
 tags: [CadJSON, SolidWorks, CAD, AutoCAD, Desktop, PySide6, MCP, Python, COM, Automation, VibeCAD, Subskills]
 status: in-progress
 updated: 2026-07-25
-summary: 声明式 CAD JSON 建模管线——一份参数化 CAD JSON 单连接一次驱动 SolidWorks 完成原生建模、STEP 导出与自审查报告，改参数一键重建；配套 MCP Server、桌面工作台与电芯结构件实例。
+summary: 自然语言描述零件需求，AI 自动生成参数化 CAD JSON 并单连接一次驱动 SolidWorks 生成 3D 结构（SLDPRT + STEP）与自审查报告，改参数一键重建；配套 MCP Server、桌面工作台与电芯结构件实例。
 
 cover: assets/douyin-balance.jpg
 readme: README.md

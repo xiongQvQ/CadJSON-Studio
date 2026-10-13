@@ -1,7 +1,7 @@
 {
   "name": "solidworks-automation-skill",
   "version": "1.3.0",
-  "description": "CadJSON Studio - turn a parameterized CAD JSON into native SolidWorks parts in one pass: modeling, STEP export, and automated self-review",
+  "description": "CadJSON Studio - describe a part in natural language, AI generates a parameterized CAD JSON, and one pass builds the native SolidWorks 3D structure with STEP export and self-review",
   "main": "install.js",
   "bin": {
     "solidworks-automation-skill": "./install.js",

@@ -5,8 +5,8 @@
 [![SolidWorks](https://img.shields.io/badge/SolidWorks-2024--2026-red.svg)](https://www.solidworks.com/)
 [![Upstream](https://img.shields.io/badge/based%20on-SolidWorks%20Automation%20Skill-00599c.svg)](https://github.com/wzyn20051216/solidworks-automation-skill)
 
-**声明式 CAD JSON，一步驱动 SolidWorks 原生建模。**
-AI Agent 只负责写一份参数化 CAD JSON，建模、保存、导出、自审查由固定的执行器一次完成——**Agent 只写 JSON，引擎负责建模。**
+**用自然语言描述零件，AI 自动生成参数化 CAD JSON，一步驱动 SolidWorks 生成 3D 结构。**
+自然语言需求 → 参数化 CAD JSON → 原生 SLDPRT + STEP + 自审查报告；建模、保存、导出、自审查由固定的执行器一次完成——**Agent 只写 JSON，引擎负责建模。**
 
 > **二次开发声明**：本项目基于开源项目 [SolidWorks Automation Skill](https://github.com/wzyn20051216/solidworks-automation-skill)（MIT License，作者 wzyn20051216 及其贡献者）进行二次开发。上游提供了完整的 SolidWorks COM API 封装、能力清单、自审查与交付体系、MCP Server 和桌面客户端；本仓库在其之上引入 **参数化 CAD JSON 声明式建模管线**，把 AI 建模从「逐行生成 Python 脚本」改为「生成一份结构化 JSON、由已验证引擎一次执行」。完整改动清单见[与上游的差异](#与上游的差异本仓库二次开发清单)。
 
